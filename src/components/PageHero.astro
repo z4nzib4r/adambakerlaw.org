@@ -1,0 +1,40 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  image?: string;
+  position?: string;
+}
+const { eyebrow, title, lead, image = '/images/practice.jpg', position = 'center 30%' } = Astro.props;
+---
+
+<section class="page-hero" style={`--img: url('${image}'); --pos: ${position}`}>
+  <div class="container">
+    <span class="eyebrow">{eyebrow}</span>
+    <h1>{title}</h1>
+    {lead && <p>{lead}</p>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding-block: clamp(4rem, 9vw, 6.5rem);
+    background: linear-gradient(100deg, rgb(20 33 61 / 0.96) 0%, rgb(20 33 61 / 0.86) 50%, rgb(20 33 61 / 0.6) 100%),
+      var(--img) var(--pos) / cover no-repeat;
+    color: rgb(255 255 255 / 0.85);
+  }
+  .eyebrow {
+    color: #d9bd85;
+  }
+  h1 {
+    color: #fff;
+    max-width: 18ch;
+  }
+  p {
+    font-size: 1.15rem;
+    max-width: 58ch;
+    margin: 0;
+  }
+</style>

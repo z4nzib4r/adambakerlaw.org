@@ -1,0 +1,257 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { firm, practiceAreas } from '../data/site';
+
+const years = new Date().getFullYear() - 1988;
+---
+
+<Base>
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="eyebrow">Athens, Ohio · Since {firm.since}</span>
+      <h1>Steady, experienced counsel when it matters most.</h1>
+      <p class="hero__lead">
+        For more than {years} years, Adam Baker has provided competent and affordable legal representation that
+        protects your rights and helps you reach your legal goals.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/contact-me/">Schedule a consultation</a>
+        <a class="btn btn--ghost" href={firm.phoneHref}>Call {firm.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="At a glance">
+    <div class="container stats__grid">
+      <div><strong>{years}+</strong><span>Years in practice</span></div>
+      <div><strong>6</strong><span>Southeast Ohio counties served</span></div>
+      <div><strong>1 day</strong><span>Phone calls returned within one business day</span></div>
+      <div><strong>7</strong><span>Areas of practice</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container intro">
+      <div>
+        <span class="eyebrow">Welcome</span>
+        <h2>The legal world is challenging. You don't have to face it alone.</h2>
+      </div>
+      <div>
+        <p class="lead">
+          When people hire an attorney, they are often going through a stressful time. Our practice is built on
+          being sensitive to you and your situation — giving honest assessments, careful work, and the support you
+          deserve.
+        </p>
+        <p>
+          We handle matters across {firm.counties.slice(0, -1).join(', ')} and {firm.counties.at(-1)} counties,
+          from the Athens County Courthouse just across the street to courts throughout the region.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Practice Areas</span>
+        <h2>How we can help</h2>
+        <p class="lead">A general practice serving individuals, families and businesses throughout southeast Ohio.</p>
+      </div>
+      <div class="areas">
+        {
+          practiceAreas.map((a, i) => (
+            <a class="area" href={`/practice-areas/#${a.slug}`}>
+              <span class="area__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{a.title}</h3>
+              <p>{a.summary}</p>
+              <span class="area__more">
+                Learn more <span aria-hidden="true">→</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about">
+      <div class="about__img">
+        <img src="/images/about.png" alt="Attorney Adam Baker" width="328" height="517" loading="lazy" />
+      </div>
+      <div>
+        <span class="eyebrow">About the Attorney</span>
+        <h2>Adam J. Baker</h2>
+        <p class="lead">
+          Licensed in Ohio and Illinois, Adam has served clients in Athens and the surrounding area for more than
+          three decades.
+        </p>
+        <ul class="check-list">
+          <li>Reliable advice and representation by an experienced attorney</li>
+          <li>Phone calls returned within one business day</li>
+          <li>Honest assessments of your case — the good and the bad</li>
+          <li>All work performed with care and attention to detail</li>
+        </ul>
+        <p style="margin-top: 2rem">
+          <a class="btn btn--outline" href="/about-me/">More about Adam</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    background: linear-gradient(90deg, rgb(20 33 61 / 0.94) 0%, rgb(20 33 61 / 0.78) 55%, rgb(20 33 61 / 0.35) 100%),
+      url('/images/home.jpeg') center 55% / cover no-repeat;
+    color: rgb(255 255 255 / 0.86);
+    padding-block: clamp(5rem, 13vw, 9.5rem);
+  }
+  .hero .eyebrow {
+    color: #d9bd85;
+  }
+  .hero h1 {
+    color: #fff;
+    max-width: 16ch;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+  }
+  .hero__lead {
+    font-size: 1.2rem;
+    max-width: 52ch;
+    margin-bottom: 2.2rem;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .stats {
+    border-bottom: 1px solid var(--line);
+  }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .stats__grid > div {
+    padding: 2rem 1.5rem;
+    border-left: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .stats__grid > div:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .stats strong {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stats span {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 1.25rem;
+  }
+  .area {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .area:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+    color: var(--text);
+  }
+  .area__num {
+    font-family: var(--serif);
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .area h3 {
+    margin-bottom: 0.4rem;
+  }
+  .area p {
+    color: var(--muted);
+    font-size: 0.97rem;
+    flex: 1;
+  }
+  .area__more {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 0.75fr 1.25fr;
+    gap: 4.5rem;
+    align-items: center;
+  }
+  .about__img {
+    position: relative;
+    max-width: 360px;
+  }
+  .about__img::before {
+    content: '';
+    position: absolute;
+    inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius);
+  }
+  .about__img img {
+    position: relative;
+    border-radius: var(--radius);
+    width: 100%;
+  }
+
+  @media (max-width: 860px) {
+    .stats__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stats__grid > div {
+      border-left: 0;
+      padding-left: 0;
+      border-top: 1px solid var(--line);
+    }
+    .stats__grid > div:nth-child(-n + 2) {
+      border-top: 0;
+    }
+    .intro,
+    .about {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .about__img {
+      max-width: 280px;
+    }
+  }
+</style>

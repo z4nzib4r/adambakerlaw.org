@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { resources } from '../data/site';
+
+const categories = [...new Set(resources.map((r) => r.category))];
+---
+
+<Base title="Client Resources" description="Downloadable forms, questionnaires and information for clients of Adam Baker, Attorney at Law.">
+  <PageHero
+    eyebrow="Resources"
+    title="Forms &amp; information for clients."
+    lead="Download checklists, fillable questionnaires and service information to help you prepare for your appointment."
+  />
+
+  <section class="section">
+    <div class="container">
+      {
+        categories.map((cat) => (
+          <div class="group">
+            <h2>{cat}</h2>
+            <div class="docs">
+              {resources
+                .filter((r) => r.category === cat)
+                .map((r) => (
+                  <a class="doc" href={r.href} target="_blank" rel="noopener">
+                    <span class="doc__icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <path d="M14 2v6h6M8 13h8M8 17h5" />
+                      </svg>
+                    </span>
+                    <span class="doc__body">
+                      <span class="doc__title">{r.title}</span>
+                      <span class="doc__desc">{r.description}</span>
+                      <span class="doc__meta">
+                        PDF · {r.size}
+                        {r.fillable && <span class="badge">Fillable</span>}
+                      </span>
+                    </span>
+                    <span class="doc__dl" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+                      </svg>
+                    </span>
+                  </a>
+                ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand title="Need help with a form?" />
+</Base>
+
+<style>
+  .group + .group {
+    margin-top: 3.5rem;
+  }
+  .group h2 {
+    font-size: 1.9rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 1.5rem;
+  }
+  .docs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr));
+    gap: 1rem;
+  }
+  .doc {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .doc:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    color: var(--text);
+  }
+  .doc__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    background: var(--bg-soft);
+    color: var(--accent-dark);
+  }
+  .doc__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .doc__title {
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .doc__desc {
+    font-size: 0.93rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .doc__meta {
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .badge {
+    background: #f3ead9;
+    color: var(--accent-dark);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+  }
+  .doc__dl {
+    flex: none;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.2s;
+  }
+  .doc:hover .doc__dl {
+    color: var(--accent);
+    transform: translateY(2px);
+  }
+</style>

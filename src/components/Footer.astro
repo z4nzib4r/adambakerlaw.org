@@ -1,0 +1,162 @@
+---
+import { firm, nav, hours, mapsLink } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container grid">
+    <div>
+      <p class="f-brand">Adam Baker</p>
+      <p class="f-sub">Attorney &amp; Counselor at Law, LLC</p>
+      <p class="f-blurb">
+        Competent, affordable legal representation for Athens, Hocking, Perry, Morgan, Vinton and Washington
+        counties since {firm.since}.
+      </p>
+      <a class="f-social" href={firm.facebook} target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.4 0-4.1 1.5-4.1 4.2v2.3H7.5V14h2.7v8h3.3z"></path></svg>
+        Follow on Facebook
+      </a>
+    </div>
+
+    <div>
+      <h2 class="f-head">Contact</h2>
+      <address>
+        <a href={mapsLink} target="_blank" rel="noopener">
+          {firm.address.street}, {firm.address.suite}<br />
+          {firm.address.city}, {firm.address.state} {firm.address.zip}
+        </a>
+      </address>
+      <p>
+        Phone: <a href={firm.phoneHref}>{firm.phone}</a><br />
+        Fax: {firm.fax}<br />
+        <a href={`mailto:${firm.email}`}>{firm.email}</a>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="f-head">Hours</h2>
+      <dl class="f-hours">
+        {
+          hours.map((h) => (
+            <>
+              <dt>{h.day}</dt>
+              <dd>{h.time}</dd>
+            </>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div>
+      <h2 class="f-head">Explore</h2>
+      <ul class="f-links">
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        <li><a href="/docs/privacy-policy-terms-of-use.pdf">Privacy Policy &amp; Terms</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container legal">
+    <p>© {year} Adam J. Baker. All rights reserved.</p>
+    <p>
+      The content on this site is for informational purposes only and is not legal advice. Contacting this office
+      through this website does not create an attorney–client relationship.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: rgb(255 255 255 / 0.72);
+    font-size: 0.93rem;
+    padding-top: 4.5rem;
+  }
+  .site-footer a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: #d9bd85;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
+    gap: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .f-brand {
+    font-family: var(--serif);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1.1;
+  }
+  .f-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #d9bd85;
+    margin-bottom: 1.2rem;
+  }
+  .f-blurb {
+    max-width: 34ch;
+  }
+  .f-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .f-head {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 1.1rem;
+  }
+  address {
+    font-style: normal;
+    margin-bottom: 1rem;
+  }
+  .f-hours {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.2rem 1rem;
+    margin: 0;
+  }
+  .f-hours dt {
+    color: #fff;
+  }
+  .f-hours dd {
+    margin: 0;
+  }
+  .f-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .legal {
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    padding-block: 1.75rem 2.25rem;
+    font-size: 0.8rem;
+    color: rgb(255 255 255 / 0.55);
+  }
+  .legal p {
+    margin: 0 0 0.4rem;
+  }
+  @media (max-width: 960px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

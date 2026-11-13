@@ -1,0 +1,301 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { firm, practiceAreas } from '../data/site';
+---
+
+<Base
+  title="Practice Areas"
+  description="Domestic relations, bankruptcy, DUI/OVI defense, civil litigation, traffic, oil & gas and real estate law in Athens, Hocking, Perry, Morgan, Vinton and Washington counties."
+>
+  <PageHero
+    eyebrow="Practice Areas"
+    title="Focused help across the matters that affect your life."
+    lead={`Serving clients in ${firm.counties.slice(0, -1).join(', ')} and ${firm.counties.at(-1)} counties.`}
+  />
+
+  <section class="section">
+    <div class="container layout">
+      <aside class="toc" aria-label="Practice areas">
+        <p class="toc__title">On this page</p>
+        <ul>
+          {practiceAreas.map((a) => <li><a href={`#${a.slug}`}>{a.title}</a></li>)}
+        </ul>
+      </aside>
+
+      <div class="list">
+        {
+          practiceAreas.map((a, i) => (
+            <article id={a.slug} class="pa">
+              <span class="pa__num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h2>{a.title}</h2>
+                <p class="pa__summary">{a.summary}</p>
+                <ul class="tags">
+                  {a.items.map((item) => <li>{item}</li>)}
+                </ul>
+                {a.details && (
+                  <details class="acc">
+                    <summary>
+                      <span>Read more about {a.title}</span>
+                      <span class="acc__icon" aria-hidden="true" />
+                    </summary>
+                    <div class="acc__body">
+                      {a.details.map((b) => (
+                        <div class="block">
+                          {b.heading && <h3>{b.heading}</h3>}
+                          {b.text?.map((t) => <p>{t}</p>)}
+                          {b.list && (
+                            <ul class="check-list">
+                              {b.list.map((li) => <li>{li}</li>)}
+                            </ul>
+                          )}
+                        </div>
+                      ))}
+                      <div class="acc__foot">
+                        <a class="btn btn--primary" href="/contact-me/">Discuss your case</a>
+                        {a.pdf && (
+                          <a class="pdf" href={a.pdf.href} download>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                              <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+                            </svg>
+                            Download as PDF <small>({a.pdf.size})</small>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </details>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Questions about my services?" text={`Call ${firm.phone} or reach out through the contact form.`} />
+</Base>
+
+<script>
+  // Open the matching accordion when arriving via a link like /practice-areas/#bankruptcy
+  const openFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const acc = id && document.getElementById(id)?.querySelector('details');
+    if (acc) acc.open = true;
+  };
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+</script>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .toc {
+    position: sticky;
+    top: 130px;
+  }
+  .toc__title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+  .toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--line);
+  }
+  .toc a {
+    display: block;
+    padding: 0.4rem 0 0.4rem 1rem;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .toc a:hover {
+    color: var(--ink);
+    border-left-color: var(--accent);
+  }
+
+  .pa {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 1rem;
+    padding-block: 2.75rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 120px;
+  }
+  .pa:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .pa__num {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+  .pa h2 {
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+  }
+  .pa__summary {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+  .tags {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tags li {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+  .acc {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .acc:hover,
+  .acc[open] {
+    border-color: var(--accent);
+  }
+  .acc[open] {
+    box-shadow: var(--shadow);
+  }
+  .acc summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ink);
+    border-radius: var(--radius);
+  }
+  .acc summary::-webkit-details-marker {
+    display: none;
+  }
+  .acc__icon {
+    position: relative;
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    transition: background 0.2s, transform 0.25s;
+  }
+  .acc__icon::before,
+  .acc__icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 11px;
+    height: 2px;
+    background: var(--accent-dark);
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s;
+  }
+  .acc__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  .acc[open] .acc__icon {
+    background: var(--accent);
+  }
+  .acc[open] .acc__icon::before,
+  .acc[open] .acc__icon::after {
+    background: #fff;
+  }
+  .acc[open] .acc__icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .acc__body {
+    padding: 0.5rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--line);
+    margin-inline: 1.25rem 1.25rem;
+    padding-inline: 0;
+  }
+  .block {
+    margin-top: 1.25rem;
+  }
+  .block h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.35rem;
+  }
+  .block p {
+    max-width: 68ch;
+  }
+  .block p:last-child {
+    margin-bottom: 0;
+  }
+  .block .check-list {
+    margin-top: 0.75rem;
+    gap: 0.5rem;
+  }
+  .acc__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--line);
+  }
+  .pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .pdf small {
+    font-size: 0.8rem;
+  }
+  .pdf:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+  .tags {
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .toc {
+      display: none;
+    }
+    .pa {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

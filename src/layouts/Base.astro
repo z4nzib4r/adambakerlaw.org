@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { firm } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = `${firm.fullName} — providing competent, affordable legal representation in Athens, Ohio and surrounding counties since ${firm.since}.`,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${firm.name}, Attorney at Law` : `${firm.name} | Attorney & Counselor at Law — Athens, Ohio`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.adambakerlaw.org');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: firm.fullName,
+  url: 'https://www.adambakerlaw.org/',
+  telephone: '+1-740-592-9043',
+  faxNumber: '+1-740-592-9034',
+  email: firm.email,
+  image: 'https://www.adambakerlaw.org/images/about.png',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${firm.address.street} ${firm.address.suite}`,
+    addressLocality: firm.address.city,
+    addressRegion: firm.address.state,
+    postalCode: firm.address.zip,
+    addressCountry: 'US',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: firm.geo.lat, longitude: firm.geo.lng },
+  areaServed: firm.counties.map((c) => `${c} County, OH`),
+  openingHours: 'Mo-Th 09:00-17:00',
+  sameAs: [firm.facebook],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/home.jpeg" />
+    <meta name="theme-color" content="#14213d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
