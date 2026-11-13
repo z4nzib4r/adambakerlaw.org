@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { firm, practiceAreas } from '../data/site';
+import { firm, practiceAreas, url } from '../data/site';
 ---
 
 <Base
@@ -54,7 +54,7 @@ import { firm, practiceAreas } from '../data/site';
                         </div>
                       ))}
                       <div class="acc__foot">
-                        <a class="btn btn--primary" href="/contact-me/">Discuss your case</a>
+                        <a class="btn btn--primary" href={url("/contact-me/")}>Discuss your case</a>
                         {a.pdf && (
                           <a class="pdf" href={a.pdf.href} download>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

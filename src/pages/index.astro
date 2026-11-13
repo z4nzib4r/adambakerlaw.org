@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { firm, practiceAreas } from '../data/site';
+import { firm, practiceAreas, url } from '../data/site';
 
 const years = new Date().getFullYear() - 1988;
 ---
 
 <Base>
-  <section class="hero">
+  <section class="hero" style={`--hero: url('${url('/images/home.jpeg')}')`}>
     <div class="container hero__inner">
       <span class="eyebrow">Athens, Ohio · Since {firm.since}</span>
       <h1>Steady, experienced counsel when it matters most.</h1>
@@ -16,7 +16,7 @@ const years = new Date().getFullYear() - 1988;
         protects your rights and helps you reach your legal goals.
       </p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="/contact-me/">Schedule a consultation</a>
+        <a class="btn btn--primary" href={url("/contact-me/")}>Schedule a consultation</a>
         <a class="btn btn--ghost" href={firm.phoneHref}>Call {firm.phone}</a>
       </div>
     </div>
@@ -61,7 +61,7 @@ const years = new Date().getFullYear() - 1988;
       <div class="areas">
         {
           practiceAreas.map((a, i) => (
-            <a class="area" href={`/practice-areas/#${a.slug}`}>
+            <a class="area" href={url(`/practice-areas/#${a.slug}`)}>
               <span class="area__num">{String(i + 1).padStart(2, '0')}</span>
               <h3>{a.title}</h3>
               <p>{a.summary}</p>
@@ -78,7 +78,7 @@ const years = new Date().getFullYear() - 1988;
   <section class="section">
     <div class="container about">
       <div class="about__img">
-        <img src="/images/about.png" alt="Attorney Adam Baker" width="328" height="517" loading="lazy" />
+        <img src={url("/images/about.png")} alt="Attorney Adam Baker" width="328" height="517" loading="lazy" />
       </div>
       <div>
         <span class="eyebrow">About the Attorney</span>
@@ -94,7 +94,7 @@ const years = new Date().getFullYear() - 1988;
           <li>All work performed with care and attention to detail</li>
         </ul>
         <p style="margin-top: 2rem">
-          <a class="btn btn--outline" href="/about-me/">More about Adam</a>
+          <a class="btn btn--outline" href={url("/about-me/")}>More about Adam</a>
         </p>
       </div>
     </div>
@@ -107,7 +107,7 @@ const years = new Date().getFullYear() - 1988;
   .hero {
     position: relative;
     background: linear-gradient(90deg, rgb(20 33 61 / 0.94) 0%, rgb(20 33 61 / 0.78) 55%, rgb(20 33 61 / 0.35) 100%),
-      url('/images/home.jpeg') center 55% / cover no-repeat;
+      var(--hero) center 55% / cover no-repeat;
     color: rgb(255 255 255 / 0.86);
     padding-block: clamp(5rem, 13vw, 9.5rem);
   }

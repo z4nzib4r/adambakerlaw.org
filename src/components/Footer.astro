@@ -1,5 +1,5 @@
 ---
-import { firm, nav, hours, mapsLink } from '../data/site';
+import { firm, nav, hours, mapsLink, url } from '../data/site';
 const year = new Date().getFullYear();
 ---
 
@@ -51,7 +51,7 @@ const year = new Date().getFullYear();
       <h2 class="f-head">Explore</h2>
       <ul class="f-links">
         {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
-        <li><a href="/docs/privacy-policy-terms-of-use.pdf">Privacy Policy &amp; Terms</a></li>
+        <li><a href={url("/docs/privacy-policy-terms-of-use.pdf")}>Privacy Policy &amp; Terms</a></li>
       </ul>
     </div>
   </div>

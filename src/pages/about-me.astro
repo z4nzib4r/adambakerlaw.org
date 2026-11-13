@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import { url } from '../data/site';
 
 const years = new Date().getFullYear() - 1988;
 
@@ -31,7 +32,7 @@ const credentials = [
   <section class="section">
     <div class="container bio">
       <figure class="portrait">
-        <img src="/images/about.png" alt="Attorney Adam J. Baker" width="328" height="517" />
+        <img src={url('/images/about.png')} alt="Attorney Adam J. Baker" width="328" height="517" />
         <figcaption>
           <strong>Adam J. Baker</strong>
           Attorney &amp; Counselor at Law
@@ -59,7 +60,7 @@ const credentials = [
             <li>Honest assessments of cases, good and bad</li>
             <li>All work performed with care and attention to detail</li>
           </ul>
-          <p class="offers__link"><a href="/practice-areas/">Explore practice areas →</a></p>
+          <p class="offers__link"><a href={url('/practice-areas/')}>Explore practice areas →</a></p>
         </div>
       </div>
     </div>

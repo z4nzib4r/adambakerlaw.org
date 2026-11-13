@@ -1,5 +1,5 @@
 ---
-import { firm } from '../data/site';
+import { firm, url } from '../data/site';
 interface Props {
   title?: string;
   text?: string;
@@ -18,7 +18,7 @@ const {
     </div>
     <div class="actions">
       <a class="btn btn--primary" href={firm.phoneHref}>Call {firm.phone}</a>
-      <a class="btn btn--ghost" href="/contact-me/">Send a message</a>
+      <a class="btn btn--ghost" href={url("/contact-me/")}>Send a message</a>
     </div>
   </div>
 </section>

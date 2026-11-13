@@ -1,4 +1,5 @@
 ---
+import { url } from '../data/site';
 interface Props {
   eyebrow: string;
   title: string;
@@ -6,7 +7,7 @@ interface Props {
   image?: string;
   position?: string;
 }
-const { eyebrow, title, lead, image = '/images/practice.jpg', position = 'center 30%' } = Astro.props;
+const { eyebrow, title, lead, image = url('/images/practice.jpg'), position = 'center 30%' } = Astro.props;
 ---
 
 <section class="page-hero" style={`--img: url('${image}'); --pos: ${position}`}>

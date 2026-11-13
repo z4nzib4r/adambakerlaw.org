@@ -1,3 +1,6 @@
+/** Prefix a root-relative path with the deploy base (e.g. /adambakerlaw.org on GitHub Pages). */
+export const url = (path: string) => import.meta.env.BASE_URL.replace(/\/$/, '') + path;
+
 export const firm = {
   name: 'Adam Baker',
   fullName: 'Adam Baker, Attorney & Counselor at Law, LLC',
@@ -27,11 +30,11 @@ export const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encod
 export const mapsEmbed = `https://maps.google.com/maps?q=${firm.geo.lat},${firm.geo.lng}&z=16&output=embed`;
 
 export const nav = [
-  { href: '/', label: 'Home' },
-  { href: '/about-me/', label: 'About' },
-  { href: '/practice-areas/', label: 'Practice Areas' },
-  { href: '/resources/', label: 'Resources' },
-  { href: '/contact-me/', label: 'Contact' },
+  { href: url('/'), label: 'Home' },
+  { href: url('/about-me/'), label: 'About' },
+  { href: url('/practice-areas/'), label: 'Practice Areas' },
+  { href: url('/resources/'), label: 'Resources' },
+  { href: url('/contact-me/'), label: 'Contact' },
 ];
 
 export const hours = [
@@ -92,7 +95,7 @@ export const practiceAreas: PracticeArea[] = [
         ],
       },
     ],
-    pdf: { href: '/docs/domestic-relations.pdf', size: '176 KB' },
+    pdf: { href: url('/docs/domestic-relations.pdf'), size: '176 KB' },
   },
   {
     slug: 'bankruptcy',
@@ -134,7 +137,7 @@ export const practiceAreas: PracticeArea[] = [
         ],
       },
     ],
-    pdf: { href: '/docs/bankruptcy-and-insolvency.pdf', size: '113 KB' },
+    pdf: { href: url('/docs/bankruptcy-and-insolvency.pdf'), size: '113 KB' },
   },
   {
     slug: 'dui-ovi',
@@ -163,7 +166,7 @@ export const practiceAreas: PracticeArea[] = [
       },
       { text: ['Feel free to call to discuss your OMVI case.'] },
     ],
-    pdf: { href: '/docs/dui-omvi-law.pdf', size: '116 KB' },
+    pdf: { href: url('/docs/dui-omvi-law.pdf'), size: '116 KB' },
   },
   {
     slug: 'civil-litigation',
@@ -202,7 +205,7 @@ export const practiceAreas: PracticeArea[] = [
         ],
       },
     ],
-    pdf: { href: '/docs/oil-and-gas-law.pdf', size: '188 KB' },
+    pdf: { href: url('/docs/oil-and-gas-law.pdf'), size: '188 KB' },
   },
   {
     slug: 'real-estate',
@@ -218,7 +221,7 @@ export const practiceAreas: PracticeArea[] = [
         ],
       },
     ],
-    pdf: { href: '/docs/real-estate-law.pdf', size: '95 KB' },
+    pdf: { href: url('/docs/real-estate-law.pdf'), size: '95 KB' },
   },
 ];
 
@@ -226,14 +229,14 @@ export const resources = [
   {
     title: 'Documentation Required for Bankruptcy Filing',
     description: 'A convenient list of required documents to bring with you when filing for bankruptcy.',
-    href: '/docs/bankruptcy-documents.pdf',
+    href: url('/docs/bankruptcy-documents.pdf'),
     size: '84 KB',
     category: 'Bankruptcy',
   },
   {
     title: 'Initial Interview Bankruptcy Questionnaire',
     description: 'Convenient and easy-to-use fillable bankruptcy questionnaire.',
-    href: '/docs/bankruptcy-questionnaire.pdf',
+    href: url('/docs/bankruptcy-questionnaire.pdf'),
     size: '524 KB',
     category: 'Bankruptcy',
     fillable: true,
@@ -241,21 +244,21 @@ export const resources = [
   {
     title: 'Cricket Debt Counseling Services',
     description: 'Information, pricing and instructions about Cricket Debt Counseling services.',
-    href: '/docs/cricket-debt-counseling.pdf',
+    href: url('/docs/cricket-debt-counseling.pdf'),
     size: '816 KB',
     category: 'Bankruptcy',
   },
   {
     title: 'SolidStart Financial Education Services',
     description: 'Information, pricing and instructions about SolidStart Financial Education services.',
-    href: '/docs/solidstart-financial-education.pdf',
+    href: url('/docs/solidstart-financial-education.pdf'),
     size: '926 KB',
     category: 'Bankruptcy',
   },
   {
     title: 'Domestic Relations Information Sheet',
     description: 'Convenient and easy-to-use fillable version.',
-    href: '/docs/domestic-relations-information-sheet.pdf',
+    href: url('/docs/domestic-relations-information-sheet.pdf'),
     size: '260 KB',
     category: 'Domestic Relations',
     fillable: true,
@@ -263,7 +266,7 @@ export const resources = [
   {
     title: 'Privacy Policy & Terms of Use',
     description: 'How this website handles your information and the terms that govern its use.',
-    href: '/docs/privacy-policy-terms-of-use.pdf',
+    href: url('/docs/privacy-policy-terms-of-use.pdf'),
     size: '122 KB',
     category: 'General',
   },

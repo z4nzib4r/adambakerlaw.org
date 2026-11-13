@@ -1,8 +1,9 @@
 ---
-import { firm, nav } from '../data/site';
+import { firm, nav, url } from '../data/site';
 
 const path = Astro.url.pathname.replace(/\/?$/, '/');
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const home = url("/");
+const isActive = (href: string) => (href === home ? path === home : path.startsWith(href));
 ---
 
 <header class="site-header">
@@ -13,7 +14,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     </div>
   </div>
   <div class="container bar">
-    <a href="/" class="brand" aria-label={`${firm.name} — home`}>
+    <a href={home} class="brand" aria-label={`${firm.name} — home`}>
       <span class="brand__mark" aria-hidden="true">AB</span>
       <span class="brand__text">
         <span class="brand__name">Adam Baker</span>
